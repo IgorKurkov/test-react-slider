@@ -9,7 +9,7 @@ export default class Slider extends Component {
     super(props);
     this.state = {
       interval: null,
-      intervalTimeout: 2000,
+      intervalTimeout: 10000,
       currentSlideIndex: 0,
       slides: []
     };
@@ -83,7 +83,7 @@ export default class Slider extends Component {
             />
           ))}
         </div>
-        
+
       </div>
     );
   }
