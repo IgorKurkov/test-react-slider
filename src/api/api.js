@@ -1,5 +1,4 @@
 //get data
-
 export default {
   Feed: {
     slider: [
@@ -8,11 +7,7 @@ export default {
         text: "Animals are here.",
         image: "https://placeimg.com/150/150/animals/sepia"
       },
-      {
-        hero: "https://placeimg.com/640/480/animals",
-        text: "Animals are here.",
-        image: "https://placeimg.com/150/150/animals/sepia"
-      },
+
       {
         hero: "https://placeimg.com/640/480/people",
         text: "People are here.",

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { default as data } from "./api/api";
 import Slide from "./components/Slide";
 import Arrow from "./components/Arrow";
 import "./App.css";
@@ -10,7 +11,7 @@ export default class Slider extends Component {
       interval: null,
       intervalTimeout: 2000,
       currentSlideIndex: 0,
-      slides: this.props.data.Feed.slider
+      slides: []
     };
     this.moveSlide = this.moveSlide.bind(this);
     this.setCurrentSlide = this.setCurrentSlide.bind(this);
@@ -19,9 +20,9 @@ export default class Slider extends Component {
   }
 
   stopRotation() {
-    this.setState(prevState => {
-      interval: clearInterval(prevState.interval);
-    });
+    this.setState(prevState => ({
+      interval: clearInterval(prevState.interval)
+    }));
   }
 
   startRotation() {
@@ -31,37 +32,34 @@ export default class Slider extends Component {
   }
 
   componentDidMount() {
+    this.setState({ slides: data.Feed.slider });
     this.startRotation();
   }
 
   renderSlide() {
-    return (
-      <Slide
-        slide={this.state.slides[this.state.currentSlideIndex]}
-        pause={this.stopRotation}
-        start={this.startRotation}
-      />
-    );
+    let visible = this.state.currentSlideIndex;
+    return this.state.slides.map((slide, index) => {
+      let classname = visible === index ? "visible" : "hide";
+      return (
+        <Slide
+          className={classname}
+          slide={slide}
+          pause={this.stopRotation}
+          start={this.startRotation}
+        />
+      );
+    });
   }
-
   render() {
     return (
       <div className="slideshow-container">
         <div className="slider">
-          <Arrow
-            direction="left"
-            clickFunction={this.moveSlide}
-            glyph="&#9664;"
-          />
-
+          <Arrow direction="left" clickFunction={this.moveSlide} glyph="&#9664;"/>
+          
           {this.renderSlide()}
 
-          <Arrow
-            direction="right"
-            clickFunction={this.moveSlide}
-            glyph="&#9654;"
-          />
-          
+          <Arrow direction="right" clickFunction={this.moveSlide} glyph="&#9654;" />
+
           <div className="dots">
             {this.state.slides.map((slide, index) => (
               <span
@@ -85,6 +83,7 @@ export default class Slider extends Component {
             />
           ))}
         </div>
+        
       </div>
     );
   }
